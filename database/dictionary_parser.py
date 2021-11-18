@@ -1,3 +1,4 @@
+import string
 import unicodedata
 import requests
 from bs4 import BeautifulSoup
@@ -7,13 +8,14 @@ class WordDownloader:
 
     @staticmethod
     def get_words_list():
-        letters = ['X']
+        letters = list(string.ascii_uppercase)
         all_words = []
 
         for letter in letters:
             page = 1
             while page != 100:
-                url = f'https://dictionnaire.lerobert.com/explore/def/{letter}/{page}'
+                url = f'https://dictionnaire.lerobert.com/explore/def/' \
+                      f'{letter}/{page}'
                 soup = BeautifulSoup(requests.get(url=url).text, 'lxml')
                 data = soup.find(class_='l-l')
                 if 'Aucun résultat trouvé' in data.text:
@@ -53,16 +55,19 @@ class WordDownloader:
                 word_def = first_def.find(class_='d_dfn')
                 if word_def is None:
                     word_def = first_def.find(class_='d_gls')
+                    if word_def is None:
+                        continue
                 self.add_to_dictionary(all_words_and_def, soup, this_dict,
                                        word_def)
             else:
                 word_def = soup.find(class_='d_dfn')
                 if word_def is None:
                     word_def = soup.find(class_='d_gls')
+                    if word_def is None:
+                        continue
                 self.add_to_dictionary(all_words_and_def, soup, this_dict,
                                        word_def)
 
-        print(all_words_and_def)
         return all_words_and_def
 
 
@@ -72,10 +77,21 @@ class DictionaryCleaner:
     def all_words_in_uppercase(words_dict):
         """All letters are put in uppercase"""
         words_dict["word"] = words_dict["word"].upper()
+
+        return words_dict
+
+    @staticmethod
+    def replace_audio_error(words_dict):
+        text = "\n\n\n\u200b\u200b\u200b\n          \n\n\n\n\n\n\n\n\n" \
+              "Votre navigateur ne prend pas en charge audio.\n\n\n"
+
+        words_dict["definition"] = words_dict["definition"].replace(text, "")
+
         return words_dict
 
     def clean(self, words_dict):
-        for dict in words_dict:
-            self.all_words_in_uppercase(dict)
+        for dictionary in words_dict:
+            self.all_words_in_uppercase(dictionary)
+            self.replace_audio_error(dictionary)
 
         return words_dict
