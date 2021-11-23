@@ -11,7 +11,8 @@ def db_insertion(words_dict):
             batch.put_item(
                 Item={
                     'word': dictionary['word'],
-                    'definition': dictionary['definition']
+                    'definition': dictionary['definition'],
+                    'word_length': dictionary['word_length']
                 }
             )
 

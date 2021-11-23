@@ -19,7 +19,7 @@ class WordDownloader:
         we need to scrape all of them as well. We make sure to break
         when we reached the final page of the actual letter.
         """
-        letters = ['X']
+        letters = list(string.ascii_uppercase)
         all_words = []
 
         for letter in letters:
@@ -115,6 +115,14 @@ class DictionaryCleaner:
 
         return words_dict
 
+    @staticmethod
+    def add_words_length_to_dict(words_dict):
+        """
+        Add the words length to the dictionaries so that
+        we can better and faster scan our Dynamo DB.
+        """
+        words_dict['word_length'] = len(words_dict['word'])
+
     def clean(self, words_dict):
         """
         Operates the cleaning.
@@ -122,5 +130,6 @@ class DictionaryCleaner:
         for dictionary in words_dict:
             self.all_words_in_uppercase(dictionary)
             self.replace_audio_error(dictionary)
+            self.add_words_length_to_dict(dictionary)
 
         return words_dict
