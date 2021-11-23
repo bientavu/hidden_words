@@ -1,23 +1,25 @@
 import boto3
+from constants import TABLE_NAME
 
 
 def db_insertion(words_dict):
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('battle_word')
+    table = dynamodb.Table(TABLE_NAME)
 
-    for dictionary in words_dict:
-        table.put_item(
-            Item={
-                'word': dictionary['word'],
-                'definition': dictionary['definition']
-            }
-        )
+    with table.batch_writer() as batch:
+        for dictionary in words_dict:
+            batch.put_item(
+                Item={
+                    'word': dictionary['word'],
+                    'definition': dictionary['definition']
+                }
+            )
 
-    response = table.get_item(
-        Key={
-            'word': 'axeltest',
-        }
-    )
-
-    item = response['Item']
-    print(item)
+    # response = table.get_item(
+    #     Key={
+    #         'word': 'axeltest',
+    #     }
+    # )
+    #
+    # item = response['Item']
+    # print(item)

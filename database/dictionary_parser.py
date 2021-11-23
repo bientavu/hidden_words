@@ -2,20 +2,30 @@ import string
 import unicodedata
 import requests
 from bs4 import BeautifulSoup
+from constants import WORD_LIST_URL, GET_DEF_URL
 
 
 class WordDownloader:
+    """
+    Class that will parse the online web word dictionary.
+    It takes all the words from A to Z.
+    Then takes all the definitions from the taken words.
+    """
 
     @staticmethod
     def get_words_list():
-        letters = list(string.ascii_uppercase)
+        """
+        Gets all the words from A to Z. As there is multiple pages,
+        we need to scrape all of them as well. We make sure to break
+        when we reached the final page of the actual letter.
+        """
+        letters = ['X']
         all_words = []
 
         for letter in letters:
             page = 1
             while page != 100:
-                url = f'https://dictionnaire.lerobert.com/explore/def/' \
-                      f'{letter}/{page}'
+                url = WORD_LIST_URL + f'{letter}/{page}'
                 soup = BeautifulSoup(requests.get(url=url).text, 'lxml')
                 data = soup.find(class_='l-l')
                 if 'Aucun résultat trouvé' in data.text:
@@ -30,6 +40,10 @@ class WordDownloader:
 
     @staticmethod
     def add_to_dictionary(all_words_and_def, soup, this_dict, word_def):
+        """
+        It adds the word and his definition we scraped
+        (added in the actual dictionary) into the main list.
+        """
         denormalized_word = soup.find('h1').text
         denormalized_def = word_def.text
         this_dict['word'] = unicodedata.normalize(
@@ -43,11 +57,16 @@ class WordDownloader:
         all_words_and_def.append(this_dict)
 
     def get_words_definition(self, all_words):
-        base_url = 'https://dictionnaire.lerobert.com'
+        """
+        Method that run through all HTML words pages in order to
+        get their definitions. Multiple HTML levels are looked so
+        that we take the proper definition (sometimes the first def
+        of a list, sometimes another type of def, etc).
+        """
         all_words_and_def = []
 
         for word in all_words:
-            url = base_url + word
+            url = GET_DEF_URL + word
             this_dict = {}
             soup = BeautifulSoup(requests.get(url=url).text, 'html.parser')
             if soup.find_all(class_='d_dvn'):
@@ -75,21 +94,31 @@ class DictionaryCleaner:
 
     @staticmethod
     def all_words_in_uppercase(words_dict):
-        """All letters are put in uppercase"""
+        """
+        All words letters are put in uppercase so that we can
+        directly show them in uppercase inside the solution PDF.
+        """
         words_dict["word"] = words_dict["word"].upper()
 
         return words_dict
 
     @staticmethod
     def replace_audio_error(words_dict):
+        """
+        Removes this extra text that appears when there is
+        an audio plugin inside the definition we scrape.
+        """
         text = "\n\n\n\u200b\u200b\u200b\n          \n\n\n\n\n\n\n\n\n" \
-              "Votre navigateur ne prend pas en charge audio.\n\n\n"
+               "Votre navigateur ne prend pas en charge audio.\n\n\n"
 
         words_dict["definition"] = words_dict["definition"].replace(text, "")
 
         return words_dict
 
     def clean(self, words_dict):
+        """
+        Operates the cleaning.
+        """
         for dictionary in words_dict:
             self.all_words_in_uppercase(dictionary)
             self.replace_audio_error(dictionary)
