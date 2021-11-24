@@ -91,6 +91,10 @@ class WordDownloader:
 
 
 class DictionaryCleaner:
+    """
+    Cleans the list of dictionaries before
+    adding them to the Dynamo DB.
+    """
 
     @staticmethod
     def all_words_in_uppercase(words_dict):
