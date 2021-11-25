@@ -100,8 +100,6 @@ class DictionaryCleaner:
     def remove_all_accents_from_words(dictionary):
         dictionary["word"] = unidecode.unidecode(dictionary["word"])
 
-        # dictionary["word"] = dictionary["word"].replace("é", "e")
-
     @staticmethod
     def all_words_in_uppercase(dictionary):
         """
@@ -122,12 +120,14 @@ class DictionaryCleaner:
         dictionary["definition"] = dictionary["definition"].replace(text, "")
 
     @staticmethod
-    def remove_words_that_starts_with_a_star(dictionary):
+    def remove_special_characters_from_words(dictionary):
         """
-        Removes the * for some words that
-        have it at the beginning of the word.
+        Removes special characters that
+        can be found in some words.
         """
-        dictionary["word"] = dictionary["word"].replace("*", "")
+        special_characters = "*()"
+        for character in special_characters:
+            dictionary["word"] = dictionary["word"].replace(character, "")
 
     @staticmethod
     def add_words_length_to_dict(dictionary):
@@ -145,7 +145,7 @@ class DictionaryCleaner:
             self.remove_all_accents_from_words(dictionary)
             self.all_words_in_uppercase(dictionary)
             self.replace_audio_error(dictionary)
-            self.remove_words_that_starts_with_a_star(dictionary)
+            self.remove_special_characters_from_words(dictionary)
             self.add_words_length_to_dict(dictionary)
 
         return words_dict
