@@ -1,5 +1,6 @@
 import string
 import unicodedata
+import unidecode
 import requests
 from bs4 import BeautifulSoup
 from constants import WORD_LIST_URL, GET_DEF_URL
@@ -47,11 +48,11 @@ class WordDownloader:
         denormalized_word = soup.find('h1').text
         denormalized_def = word_def.text
         this_dict['word'] = unicodedata.normalize(
-            "NFKD",
+            "NFKC",
             denormalized_word
         )
         this_dict['definition'] = unicodedata.normalize(
-            "NFKD",
+            "NFKC",
             denormalized_def
         )
         all_words_and_def.append(this_dict)
@@ -95,19 +96,22 @@ class DictionaryCleaner:
     Cleans the list of dictionaries before
     adding them to the Dynamo DB.
     """
+    @staticmethod
+    def remove_all_accents_from_words(dictionary):
+        dictionary["word"] = unidecode.unidecode(dictionary["word"])
+
+        # dictionary["word"] = dictionary["word"].replace("é", "e")
 
     @staticmethod
-    def all_words_in_uppercase(words_dict):
+    def all_words_in_uppercase(dictionary):
         """
         All words letters are put in uppercase so that we can
         directly show them in uppercase inside the solution PDF.
         """
-        words_dict["word"] = words_dict["word"].upper()
-
-        return words_dict
+        dictionary["word"] = dictionary["word"].upper()
 
     @staticmethod
-    def replace_audio_error(words_dict):
+    def replace_audio_error(dictionary):
         """
         Removes this extra text that appears when there is
         an audio plugin inside the definition we scrape.
@@ -115,25 +119,33 @@ class DictionaryCleaner:
         text = "\n\n\n\u200b\u200b\u200b\n          \n\n\n\n\n\n\n\n\n" \
                "Votre navigateur ne prend pas en charge audio.\n\n\n"
 
-        words_dict["definition"] = words_dict["definition"].replace(text, "")
-
-        return words_dict
+        dictionary["definition"] = dictionary["definition"].replace(text, "")
 
     @staticmethod
-    def add_words_length_to_dict(words_dict):
+    def remove_words_that_starts_with_a_star(dictionary):
+        """
+        Removes the * for some words that
+        have it at the beginning of the word.
+        """
+        dictionary["word"] = dictionary["word"].replace("*", "")
+
+    @staticmethod
+    def add_words_length_to_dict(dictionary):
         """
         Add the words length to the dictionaries so that
         we can better and faster scan our Dynamo DB.
         """
-        words_dict['word_length'] = len(words_dict['word'])
+        dictionary['word_length'] = len(dictionary['word'])
 
     def clean(self, words_dict):
         """
         Operates the cleaning.
         """
         for dictionary in words_dict:
+            self.remove_all_accents_from_words(dictionary)
             self.all_words_in_uppercase(dictionary)
             self.replace_audio_error(dictionary)
+            self.remove_words_that_starts_with_a_star(dictionary)
             self.add_words_length_to_dict(dictionary)
 
         return words_dict
