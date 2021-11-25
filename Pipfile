@@ -8,6 +8,8 @@ boto3 = "*"
 scrapy = "*"
 beautifulsoup4 = "*"
 requests = "*"
+numpy = "*"
+unidecode = "*"
 
 [dev-packages]
 
