@@ -42,15 +42,16 @@ class GridGenerator:
         self.word_position = self.empty_grid[0]
 
     def check_if_letters_are_a_word(self):
+        pass
         # self.x = 0
         # self.y = 0
         # for letter in self.only_words
         # if self.only_words[:self.grid_size][self.y] +
-        for word, pos in zip(self.only_words[:self.grid_size], range(self.grid_size)):
-            for letter in word:
-                if letter[range(self.grid_size)]
-                self.empty_grid[pos] = word
-        pprint(self.empty_grid)
+        # for word, pos in zip(self.only_words[:self.grid_size], range(self.grid_size)):
+        #     for letter in word:
+        #         if letter[range(self.grid_size)]
+        #         self.empty_grid[pos] = word
+        # pprint(self.empty_grid)
 
 
     def populate_grid(self):
