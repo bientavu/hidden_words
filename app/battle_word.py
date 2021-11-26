@@ -1,6 +1,5 @@
 from pprint import pprint
 import random
-import board
 import boto3
 import numpy
 from constants import TABLE_NAME
@@ -8,12 +7,9 @@ from boto3.dynamodb.conditions import Key, Attr
 
 
 def get_words_by_length(word_length):
-    words_by_length = []
-
-    import boto3
     dynamodb = boto3.resource('dynamodb', region_name='eu-west-1')
-
     table = dynamodb.Table('battle_word')
+
     response = table.query(
         TableName="battle_word",
         KeyConditionExpression="#DDB_word_length = :pkey",
@@ -32,62 +28,38 @@ def get_words_by_length(word_length):
     return data
 
 
-#
-# def test_grid():
-#     gridline = []
-#     for i in range(5):
-#         gridline.append("")
-#     grid = []
-#     for i in range(5):
-#         grid.append(list(gridline))
-#
-#     pprint(grid)
-#
-#
-# def test_grid2():
-#
-#     b = board.Board((12, 12))
-#     b.populate("OX  XXOO ")
-#     b.draw()
+class GridGenerator:
+    def __init__(self, words, grid_size):
+        self.words = words
+        self.grid_size = grid_size
+        random.shuffle(self.words)
+        self.all_words = [x for x in words]
+        # self.only_words = [word["word"] for word in self.all_words]
+        self.only_words = [
+            list(word)for word in [word["word"] for word in self.all_words]
+        ]
+        self.empty_grid = [['#'] * self.grid_size for _ in range(self.grid_size)]
+        self.word_position = self.empty_grid[0]
+
+    def check_if_letters_are_a_word(self):
+        # self.x = 0
+        # self.y = 0
+        # for letter in self.only_words
+        # if self.only_words[:self.grid_size][self.y] +
+        for word, pos in zip(self.only_words[:self.grid_size], range(self.grid_size)):
+            for letter in word:
+                if letter[range(self.grid_size)]
+                self.empty_grid[pos] = word
+        pprint(self.empty_grid)
 
 
-def test_grid(words, grid_size):
-    # gridssss = []
-    #
-    # grids = [["#"] * grid_size for _ in range(grid_size)]
-    #
-    # for word in words:
-    #     gridssss.append([x for x in word['word']])
-    #
-    # first = words[0]['word']
-    #
-    # for row in grids:
-    #     new_items = [x for x in row]
+    def populate_grid(self):
 
-    random.shuffle(words)
-    all_words = [x for x in words[:grid_size]]
+        # for word in self.only_words[:self.grid_size]:
+        #     for pos in range(self.grid_size):
+        #         self.empty_grid[pos] = word
+        # pprint(self.empty_grid)
 
-    only_words = [word["word"] for word in all_words]
-
-    grid_ok = [list(word) for word in only_words]
-
-
-
-
-
-
-
-
-
-
-    # new_grid = [[x for x in words] for words in grids]
-    #
-    # grids[0] = [x for x in first]
-    #
-    # pprint(gridssss)
-    # pprint(grids)
-    #
-    # for row in grids:
-    #     print(row)
-
-    pprint(grid_ok)
+        for word, pos in zip(self.only_words[:self.grid_size], range(self.grid_size)):
+            self.empty_grid[pos] = word
+        pprint(self.empty_grid)
