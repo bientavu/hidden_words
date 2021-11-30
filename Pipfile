@@ -10,6 +10,9 @@ beautifulsoup4 = "*"
 requests = "*"
 numpy = "*"
 unidecode = "*"
+pytest = "*"
+pytest-cov = "*"
+moto = "*"
 
 [dev-packages]
 
