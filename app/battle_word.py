@@ -60,14 +60,14 @@ class GridGenerator:
         #         self.empty_grid[pos] = word
         # pprint(self.empty_grid)
         first = True
-
-        for word, pos in zip(self.only_words[:self.grid_size],
-                             range(self.grid_size)):
+        # detect = []
+        for word, pos in zip(self.only_words,
+                             range(len(self.only_words))):
             if first:
                 first = False
                 self.empty_grid[pos] = word
+                pprint(self.empty_grid)
             else:
-
                 detect = []
                 for indice, letter in enumerate(list(word)):
                     search = ""
@@ -77,8 +77,39 @@ class GridGenerator:
                     print(search)
                     detect = [w['word'] for w in self.words if w['word'].startswith(search + letter)]
                     if not detect:
-                        continue
-                # if not detect:
-                #     continue
+                        break
+                if not detect:
+                    continue
             self.empty_grid[pos] = word
+            pprint(self.empty_grid)
+
+
+    def populate_grid_2(self):
+        # for word in self.only_words[:self.grid_size]:
+        #     for pos in range(self.grid_size):
+        #         self.empty_grid[pos] = word
+        # pprint(self.empty_grid)
+        first = True
+        next_position = 0
+        # detect = []
+        for word, pos in zip(self.only_words,
+                             range(len(self.only_words))):
+            if first:
+                first = False
+                self.empty_grid[0] = word
+            else:
+                detect = []
+                for indice, letter in enumerate(list(word)):
+                    search = ""
+                    for word_list in self.empty_grid:
+                        if word_list[indice] != '#':
+                            search += word_list[indice]
+                    print(search)
+                    detect = [w['word'] for w in self.words if w['word'].startswith(search + letter)]
+                    if not detect:
+                        break
+                if not detect:
+                    continue
+            self.empty_grid[next_position] = word
+            next_position += 1
             pprint(self.empty_grid)
