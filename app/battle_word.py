@@ -36,9 +36,10 @@ class GridGenerator:
         self.all_words = [x for x in words]
         # self.only_words = [word["word"] for word in self.all_words]
         self.only_words = [
-            list(word)for word in [word["word"] for word in self.all_words]
+            list(word) for word in [word["word"] for word in self.all_words]
         ]
-        self.empty_grid = [['#'] * self.grid_size for _ in range(self.grid_size)]
+        self.empty_grid = [['#'] * self.grid_size for _ in
+                           range(self.grid_size)]
         self.word_position = self.empty_grid[0]
 
     def check_if_letters_are_a_word(self):
@@ -53,14 +54,31 @@ class GridGenerator:
         #         self.empty_grid[pos] = word
         # pprint(self.empty_grid)
 
-
     def populate_grid(self):
-
         # for word in self.only_words[:self.grid_size]:
         #     for pos in range(self.grid_size):
         #         self.empty_grid[pos] = word
         # pprint(self.empty_grid)
+        first = True
 
-        for word, pos in zip(self.only_words[:self.grid_size], range(self.grid_size)):
+        for word, pos in zip(self.only_words[:self.grid_size],
+                             range(self.grid_size)):
+            if first:
+                first = False
+                self.empty_grid[pos] = word
+            else:
+
+                detect = []
+                for indice, letter in enumerate(list(word)):
+                    search = ""
+                    for word_list in self.empty_grid:
+                        if word_list[indice] != '#':
+                            search += word_list[indice]
+                    print(search)
+                    detect = [w['word'] for w in self.words if w['word'].startswith(search + letter)]
+                    if not detect:
+                        continue
+                # if not detect:
+                #     continue
             self.empty_grid[pos] = word
-        pprint(self.empty_grid)
+            pprint(self.empty_grid)
