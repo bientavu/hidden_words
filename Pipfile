@@ -13,6 +13,8 @@ unidecode = "*"
 pytest = "*"
 pytest-cov = "*"
 moto = "*"
+pylint = "*"
+reportlab = "*"
 
 [dev-packages]
 
