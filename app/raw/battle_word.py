@@ -1,4 +1,5 @@
 from pprint import pprint
+from itertools import product
 import random
 import boto3
 import numpy
@@ -27,6 +28,18 @@ def get_words_by_length(word_length):
     print(len(data))
     return data
 
+def get_all_words():
+    dynamodb = boto3.resource('dynamodb', region_name='eu-west-1')
+    table = dynamodb.Table('battle_word')
+    response = table.scan()
+    data = response['Items']
+
+    while 'LastEvaluatedKey' in response:
+        response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
+        data.extend(response['Items'])
+
+    print(data)
+    print(len(data))
 
 class GridGenerator:
     def __init__(self, words, grid_size):
@@ -38,7 +51,7 @@ class GridGenerator:
         self.only_words = [
             list(word) for word in [word["word"] for word in self.all_words]
         ]
-        self.empty_grid = [['#'] * self.grid_size for _ in
+        self.empty_grid = [['-'] * self.grid_size for _ in
                            range(self.grid_size)]
         self.word_position = self.empty_grid[0]
 
@@ -104,7 +117,7 @@ class GridGenerator:
                     for word_list in self.empty_grid:
                         if word_list[indice] != '#':
                             search += word_list[indice]
-                    print(search)
+
                     detect = [w['word'] for w in self.words if w['word'].startswith(search + letter)]
                     if not detect:
                         break
@@ -112,4 +125,32 @@ class GridGenerator:
                     continue
             self.empty_grid[next_position] = word
             next_position += 1
-            pprint(self.empty_grid)
+        pprint(self.empty_grid)
+
+
+    def generate_grid(self):
+
+        coord = list(product(range(self.grid_size), range(self.grid_size)))
+        for bloc in random.sample(coord, 8):
+            self.empty_grid[bloc[0]][bloc[1]] = '#'
+
+        pprint(self.empty_grid)
+
+        for row in self.empty_grid:
+            print(' '.join(row))
+
+        return self.empty_grid
+
+
+    def check_line_length(self, empty_grid):
+        length = 0
+        lengthh = {}
+
+        for line in empty_grid:
+            for i in line:
+                if i == "-":
+                    length += 1
+                else:
+                    pass
+
+            print(length)
