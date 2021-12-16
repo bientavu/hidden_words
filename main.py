@@ -1,8 +1,4 @@
-from decimal import Decimal
-from database.db_insertion import db_insertion
-from constants import TABLE_NAME
-from database.dictionary_parser import WordDownloader, DictionaryCleaner
-from app.battle_word import get_words_by_length, GridGenerator
+from app.pdf_generator import PdfGenerator
 
 # word_downloader = WordDownloader()
 # dict_cleaner = DictionaryCleaner()
@@ -15,14 +11,23 @@ from app.battle_word import get_words_by_length, GridGenerator
 
 # db_insertion = db_insertion(clean, TABLE_NAME)
 
-get_words_by_length = get_words_by_length(4)
+# get_words_by_length = get_words_by_length(8)
+# get_all_words = get_all_words()
 # test_grid = test_grid(get_words_by_length, 7)
 
-grid = GridGenerator(get_words_by_length, 4)
+# grid = GridGenerator(get_words_by_length, 8)
 # letter = grid.check_if_letters_are_a_word()
-populate = grid.populate_grid_2()
+# populate = grid.generate_grid()
+# line_length = grid.check_line_length(populate)
 
 
 # load_data = load_data(12)
 
 
+# hidden_words = GridGenerator(8, 20)
+# hidden_words.create_full_grid()
+# test = hidden_words.random_words
+# print(test)
+
+pdf_generator = PdfGenerator(12, 24)
+create_pdf = pdf_generator.generate_pdf()
