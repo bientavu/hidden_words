@@ -14,13 +14,13 @@ class WordDownloader:
     """
 
     @staticmethod
-    def get_words_list(letters_to_scrape):
+    def get_words_list():
         """
         Gets all the words from A to Z. As there is multiple pages,
         we need to scrape all of them as well. We make sure to break
         when we reached the final page of the actual letter.
         """
-        letters = [letters_to_scrape]
+        letters = list(string.ascii_uppercase)
         all_words = []
 
         for letter in letters:
@@ -96,6 +96,7 @@ class DictionaryCleaner:
     Cleans the list of dictionaries before
     adding them to the Dynamo DB.
     """
+
     @staticmethod
     def remove_all_accents_from_words(dictionary):
         dictionary["word"] = unidecode.unidecode(dictionary["word"])
@@ -130,22 +131,38 @@ class DictionaryCleaner:
             dictionary["word"] = dictionary["word"].replace(character, "")
 
     @staticmethod
-    def add_words_length_to_dict(dictionary):
+    def add_words_key_to_dict(dictionary):
         """
         Add the words length to the dictionaries so that
         we can better and faster scan our Dynamo DB.
         """
-        dictionary['word_length'] = len(dictionary['word'])
+        dictionary['key'] = 1
+
+    @staticmethod
+    def remove_words_too_small_or_long(words_dict):
+        for dictionary in words_dict:
+            if len(dictionary["word"]) == 1\
+                    or len(dictionary["word"]) == 2\
+                    or len(dictionary["word"]) == 3:
+                words_dict.remove(dictionary)
+
+    @staticmethod
+    def remove_comas(words_dict):
+        for dictionary in words_dict:
+            if "-" in dictionary["word"]:
+                words_dict.remove(dictionary)
 
     def clean(self, words_dict):
         """
         Operates the cleaning.
         """
+        self.remove_words_too_small_or_long(words_dict)
+        self.remove_comas(words_dict)
         for dictionary in words_dict:
             self.remove_all_accents_from_words(dictionary)
             self.all_words_in_uppercase(dictionary)
             self.replace_audio_error(dictionary)
             self.remove_special_characters_from_words(dictionary)
-            self.add_words_length_to_dict(dictionary)
+            self.add_words_key_to_dict(dictionary)
 
         return words_dict
