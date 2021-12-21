@@ -23,8 +23,9 @@ class PdfGenerator:
                 + self.data[00][3]
         ).lower()
         self.filename = f'mots-caches-generator-{self.to_replace}.pdf'
+        self.filepath = f'/tmp/mots-caches-generator-{self.to_replace}.pdf'
         self.pdf = SimpleDocTemplate(
-            self.filename,
+            self.filepath,
             pagesize=letter
         )
 
@@ -69,3 +70,5 @@ class PdfGenerator:
     def generate_pdf(self):
         list_for_pdf = [self.structure()]
         self.pdf.build(list_for_pdf)
+
+        return self

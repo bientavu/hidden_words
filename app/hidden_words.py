@@ -1,12 +1,38 @@
 import random
 import string
 from pprint import pprint
-from app.raw.battle_word import get_words_by_length
+import boto3
+
+
+def get_words_by_length(word_length):
+    dynamodb = boto3.resource('dynamodb', region_name='eu-west-1')
+    table = dynamodb.Table('battle_word')
+
+    response = table.query(
+        TableName="battle_word",
+        KeyConditionExpression="#DDB_word_length = :pkey",
+        ExpressionAttributeValues={
+            ":pkey": word_length
+        },
+        ExpressionAttributeNames={
+            "#DDB_word_length": "word_length"
+        },
+    )
+
+    data = response['Items']
+
+    # while 'LastEvaluatedKey' in response:
+    #     response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
+    #     data.extend(response['Items'])
+    print(data)
+    print(len(data))
+    return data
 
 
 class GridGenerator:
     def __init__(self, words_number, grid_size):
-        all_database = get_words_by_length(8)
+        all_database = get_words_by_length(1)
+        pprint(len(all_database))
         self.all_words_in_dict = [x for x in all_database]
         self.all_words = [word["word"] for word in self.all_words_in_dict]
         self.random_words = [random.choice(self.all_words)
