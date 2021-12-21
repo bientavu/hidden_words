@@ -6,10 +6,10 @@ import boto3
 
 def get_words_by_length(word_length):
     dynamodb = boto3.resource('dynamodb', region_name='eu-west-1')
-    table = dynamodb.Table('battle_word')
+    table = dynamodb.Table('hidden_words')
 
     response = table.query(
-        TableName="battle_word",
+        TableName="hidden_words",
         KeyConditionExpression="#DDB_word_length = :pkey",
         ExpressionAttributeValues={
             ":pkey": word_length
