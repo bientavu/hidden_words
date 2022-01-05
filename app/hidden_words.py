@@ -34,7 +34,6 @@ class GridGenerator:
     This class is responsible of generating the grid where
     all the words and the random letters will be inserted.
     """
-
     def __init__(self, words_number, grid_size):
         """
         Full init of the grid needs. The words from the DB where we take
