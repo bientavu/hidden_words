@@ -30,7 +30,17 @@ def get_words_by_length(word_length):
 
 
 class GridGenerator:
+    """
+    This class is responsible of generating the grid where
+    all the words and the random letters will be inserted.
+    """
+
     def __init__(self, words_number, grid_size):
+        """
+        Full init of the grid needs. The words from the DB where we take
+        some randoms words based on the words number chose by the user.
+        And the grid with a grid size chose by the user as well.
+        """
         all_database = get_words_by_length(1)
         self.all_words_in_dict = [x for x in all_database]
         self.all_words = [word["word"] for word in self.all_words_in_dict]
@@ -40,6 +50,13 @@ class GridGenerator:
         self.grid = [['_' for _ in range(grid_size)] for _ in range(grid_size)]
 
     def populate_random_words_in_grid(self):
+        """
+        It will take the grid and try to put the random words one by one.
+        It will randomly choose a direction and add each letter of a word,
+        by checking if the next letter we add isn't overlapping another
+        letter. If it overlaps, it will check if the letters overlapping
+        are matching so that the two words can overlap at this very letter.
+        """
         orientations = [
             'left-right', 'up-down', 'diagonal-up', 'diagonal-down'
         ]
@@ -103,12 +120,19 @@ class GridGenerator:
                     placed = True
 
     def populate_rest_of_grid(self):
+        """
+        This method will simply add the random letters
+        we need to fill the grid, replacing all the '_'.
+        """
         for x in range(self.grid_size):
             for y in range(self.grid_size):
                 if self.grid[x][y] == '_':
                     self.grid[x][y] = random.choice(string.ascii_uppercase)
 
     def create_full_grid(self):
+        """
+        Creating the full grid by calling the two methods.
+        """
         self.populate_random_words_in_grid()
         self.populate_rest_of_grid()
         print(self.grid)
