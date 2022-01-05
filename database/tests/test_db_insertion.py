@@ -6,6 +6,10 @@ from database.db_insertion import db_insertion
 
 @mock_dynamodb2
 def test_db_insertion():
+    """
+    Test to check if the db_insertion is correct,
+    for this we use the dynamodb2 mock library.
+    """
     dynamodb = boto3.resource('dynamodb')
     table_name = 'test'
     table = dynamodb.create_table(TableName=table_name,
