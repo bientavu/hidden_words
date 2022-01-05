@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Hidden Words</title>
+    <meta name="description" content="Générateur de mots croisés">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"></script>
+</head>
+
+<body id="page-top"><a class="menu-toggle rounded" href="#"><i class="fa fa-bars"></i></a>
+    <nav class="navbar navbar-light navbar-expand" id="sidebar-wrapper">
+        <div class="container"><button data-bs-toggle="collapse" class="navbar-toggler d-none" data-bs-target="#"></button>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav sidebar-nav" id="sidebar-nav">
+                    <li class="nav-item sidebar-brand"><a class="nav-link active js-scroll-trigger" href="#page-top">Battle Word</a></li>
+                    <li class="nav-item sidebar-nav-item"><a class="nav-link js-scroll-trigger" href="#page-top">Home</a></li>
+                    <li class="nav-item sidebar-nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item sidebar-nav-item"><a class="nav-link js-scroll-trigger" href="#services">Services</a></li>
+                    <li class="nav-item sidebar-nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a></li>
+                    <li class="nav-item sidebar-nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="d-flex masthead" style="background-image:url('assets/img/bg-masthead.jpg');">
+        <div class="container my-auto text-center">
+            <h1 class="mb-1">Hidden Words</h1>
+            <h3 class="mb-5"><em>Générateur de mots cachés/mélés</em></h3>
+            <form method="GET" id="pdf-parameters" class="form-inline">
+                <div class="form-group align-content-center d-inline-flex" style="text-align: -webkit-center">
+                    <div class="m-3">
+                        <label style="font-weight: bold">Taille de la grille</label><br>
+                            <label>
+                                <select id="grid-size" name="grid-size" class="form-control w-auto m-2 btn btn-primary dropdown" style="text-align: -webkit-center">
+                                  <option value="16">16 x 16</option>
+                                  <option value="17">17 x 17</option>
+                                  <option value="18">18 x 18</option>
+                                  <option value="19">19 x 19</option>
+                                  <option value="20">20 x 20</option>
+                                  <option value="21">21 x 21</option>
+                                  <option value="22">22 x 22</option>
+                                  <option value="23">23 x 23</option>
+                                  <option value="24">24 x 24</option>
+                                </select>
+                            </label>
+                    </div>
+                    <div class="m-3 font-weight-bold">
+                        <label style="font-weight: bold">Nombres de mots</label><br>
+                            <label>
+                                <select id="words-number" name="words-number" class="form-control w-auto m-2 btn btn-primary dropdown" style="text-align: -webkit-center">
+                                <option value="5">5 mots</option>
+                                <option value="6">6 mots</option>
+                                <option value="7">7 mots</option>
+                                <option value="8">8 mots</option>
+                                <option value="9">9 mots</option>
+                                <option value="10">10 mots</option>
+                                </select>
+                            </label>
+                    </div>
+                </div><br>
+                <a id="add-parameters" class="btn btn-primary btn-xl js-scroll-trigger mt-4" role="button" type="submit" href="" style="padding: 10px 15px;">GÉNÉRER UN PDF</a><br>
+                <button class="btn-animation">click</button>
+                <script type="text/javascript">
+                    $(document).ready(function (){
+                        $('.btn-animation').click(function (){
+                            $(this).addClass("loader");
+
+                            setTimeout(function (){
+                                $('.btn-animation').addClass("finished");
+                                $('.btn-animation').removeClass("loader");
+                            }, 3500)
+                        })
+                    })
+                </script>
+            </form>
+            <div class="overlay"></div>
+        </div>
+    </header>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
