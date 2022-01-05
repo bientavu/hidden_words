@@ -9,18 +9,18 @@ def test_db_insertion():
     dynamodb = boto3.resource('dynamodb')
     table_name = 'test'
     table = dynamodb.create_table(TableName=table_name,
-                                  KeySchema=[{'AttributeName': 'word_length',
+                                  KeySchema=[{'AttributeName': 'key',
                                               'KeyType': 'HASH'}],
                                   AttributeDefinitions=[
-                                      {'AttributeName': 'word_length',
+                                      {'AttributeName': 'key',
                                        'AttributeType': 'N'}])
     data = [
-        {'word_length': Decimal('6'), 'word': 'HELLOO', 'definition': 'AA'},
-        {'word_length': Decimal('5'), 'word': 'WORLD', 'definition': 'BB'},
-        {'word_length': Decimal('3'), 'word': 'LOL', 'definition': 'CC'}
+        {'key': Decimal('1'), 'word': 'HELLOO', 'definition': 'AA'},
+        {'key': Decimal('1'), 'word': 'WORLD', 'definition': 'BB'},
+        {'key': Decimal('1'), 'word': 'LOL', 'definition': 'CC'}
     ]
     db_insertion(data, table_name)
-    response = table.get_item(Key={'word_length': data[2]['word_length']})
+    response = table.get_item(Key={'key': data[2]['key']})
     actual_output = response['Item']
 
     assert actual_output is not None

@@ -17,6 +17,7 @@ class TestWordDownloader:
     def test_find_words_in_page(self, response):
         word_downloader = WordDownloader()
         all_words_actual = word_downloader.get_words_list("X")
+
         all_words_expected = []
         soup = BeautifulSoup(response.content, "lxml")
         data = soup.find(class_='l-l')
@@ -33,7 +34,7 @@ class TestDictionaryCleaner:
             {'word': '*Héllo', 'definition': 'Dire bonjour'}
         ]
         expected_result = [
-            {'word': 'HELLO', 'definition': 'Dire bonjour', 'word_length': 5}
+            {'word': 'HELLO', 'definition': 'Dire bonjour', 'key': 1}
         ]
         dict_cleaner = DictionaryCleaner()
         result = dict_cleaner.clean(entry)

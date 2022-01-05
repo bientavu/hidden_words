@@ -10,12 +10,12 @@ def get_words_by_length(word_length):
 
     response = table.query(
         TableName="hidden_words",
-        KeyConditionExpression="#DDB_word_length = :pkey",
+        KeyConditionExpression="#DDB_key = :pkey",
         ExpressionAttributeValues={
             ":pkey": word_length
         },
         ExpressionAttributeNames={
-            "#DDB_word_length": "word_length"
+            "#DDB_key": "key"
         },
     )
 
@@ -24,7 +24,7 @@ def get_words_by_length(word_length):
     # while 'LastEvaluatedKey' in response:
     #     response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
     #     data.extend(response['Items'])
-    print(data)
+
     print(len(data))
     return data
 
@@ -32,7 +32,6 @@ def get_words_by_length(word_length):
 class GridGenerator:
     def __init__(self, words_number, grid_size):
         all_database = get_words_by_length(1)
-        pprint(len(all_database))
         self.all_words_in_dict = [x for x in all_database]
         self.all_words = [word["word"] for word in self.all_words_in_dict]
         self.random_words = [random.choice(self.all_words)

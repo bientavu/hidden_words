@@ -14,13 +14,13 @@ class WordDownloader:
     """
 
     @staticmethod
-    def get_words_list():
+    def get_words_list(letters_to_scrap):
         """
         Gets all the words from A to Z. As there is multiple pages,
         we need to scrape all of them as well. We make sure to break
         when we reached the final page of the actual letter.
         """
-        letters = list(string.ascii_uppercase)
+        letters = letters_to_scrap
         all_words = []
 
         for letter in letters:
