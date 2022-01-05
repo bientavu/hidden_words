@@ -1,4 +1,6 @@
-import boto3# word_downloader = WordDownloader()
+import boto3
+
+# word_downloader = WordDownloader()
 # dict_cleaner = DictionaryCleaner()
 #
 # all_words = word_downloader.get_words_list()
