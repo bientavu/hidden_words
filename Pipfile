@@ -17,6 +17,7 @@ pylint = "*"
 reportlab = "*"
 selenium = "*"
 webdriver-manager = "*"
+coverage = "*"
 
 [dev-packages]
 
