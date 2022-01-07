@@ -41,8 +41,6 @@
                         <label style="font-weight: bold">Taille de la grille</label><br>
                             <label>
                                 <select id="grid-size" name="grid-size" class="form-control w-auto m-2 btn btn-primary dropdown" style="text-align: -webkit-center">
-                                  <option value="16">16 x 16</option>
-                                  <option value="17">17 x 17</option>
                                   <option value="18">18 x 18</option>
                                   <option value="19">19 x 19</option>
                                   <option value="20">20 x 20</option>
@@ -67,13 +65,12 @@
                             </label>
                     </div>
                 </div><br>
-                <a id="add-parameters" class="btn btn-primary btn-xl js-scroll-trigger mt-4" role="button" type="submit" href="" style="padding: 10px 15px;">GÉNÉRER UN PDF</a><br>
+                <a id="add-parameters" class="btn btn-primary btn-xl js-scroll-trigger mt-4" role="button" type="submit" href="https://4is90gmk99.execute-api.eu-west-1.amazonaws.com/production/generate-file?grid-size=18&words-number=5" style="padding: 10px 15px;">GÉNÉRER UN PDF</a><br>
                 <button class="btn-animation">click</button>
                 <script type="text/javascript">
                     $(document).ready(function (){
                         $('.btn-animation').click(function (){
                             $(this).addClass("loader");
-
                             setTimeout(function (){
                                 $('.btn-animation').addClass("finished");
                                 $('.btn-animation').removeClass("loader");
