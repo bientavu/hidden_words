@@ -15,13 +15,8 @@ def test_dynamic_url_updated_by_user(server):
 
     select_grid = Select(grid_choices)
     select_words_number = Select(words_number_choices)
-    selected_grid = select_grid.select_by_visible_text('20 x 20')
-    selected_words_number = select_words_number.select_by_value('8')
-
-    select_href = server.find_element(
-        By.ID,
-        'add-parameters'
-    ).get_attribute('href')
+    select_grid.select_by_visible_text('20 x 20')
+    select_words_number.select_by_value('8')
 
     assert "https://4is90gmk99.execute-api.eu-west-1.amazonaws.com" \
            "/production/generate-file?grid-size=20&amp;words-number=8" in \
