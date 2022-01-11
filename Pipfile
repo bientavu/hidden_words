@@ -18,6 +18,7 @@ reportlab = "*"
 selenium = "*"
 webdriver-manager = "*"
 coverage = "*"
+flake8 = "*"
 
 [dev-packages]
 
