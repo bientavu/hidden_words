@@ -30,4 +30,3 @@ def server():
     selenium = webdriver.Chrome(service=service, options=chrome_options)
     selenium.implicitly_wait(10)
     return selenium
-

@@ -1,4 +1,3 @@
-import string
 import unicodedata
 import unidecode
 import requests
@@ -12,7 +11,6 @@ class WordDownloader:
     It takes all the words from A to Z.
     Then takes all the definitions from the taken words.
     """
-
     @staticmethod
     def get_words_list(letters_to_scrap):
         """
