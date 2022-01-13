@@ -8,7 +8,7 @@ def db_insertion(words_dict, table_name):
     constant.py module. The insertion may take some times, it's
     because the scraping is time consuming.
     """
-    dynamodb = boto3.resource('dynamodb')
+    dynamodb = boto3.resource('dynamodb', region_name='eu-west-1')
     table = dynamodb.Table(table_name)
 
     with table.batch_writer() as batch:
