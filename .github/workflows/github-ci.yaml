@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -23,8 +22,9 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip pipenv
-        pipenv shell
-        pipenv install
+        pip install flake8 pytest boto3 scrapy beautifulsoup4 requests numpy
+        unidecode pytest pytest-cov moto pylint reportlab selenium
+        webdriver-manager coverage flake8
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
