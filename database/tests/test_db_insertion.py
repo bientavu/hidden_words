@@ -10,7 +10,7 @@ def test_db_insertion():
     Test to check if the db_insertion is correct,
     for this we use the dynamodb2 mock library.
     """
-    dynamodb = boto3.resource('dynamodb')
+    dynamodb = boto3.resource('dynamodb', region_name='eu-west-1')
     table_name = 'test'
     table = dynamodb.create_table(TableName=table_name,
                                   KeySchema=[{'AttributeName': 'key',
