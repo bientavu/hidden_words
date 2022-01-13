@@ -11,6 +11,7 @@ class WordDownloader:
     It takes all the words from A to Z.
     Then takes all the definitions from the taken words.
     """
+
     @staticmethod
     def get_words_list(letters_to_scrap):
         """
@@ -139,8 +140,8 @@ class DictionaryCleaner:
     @staticmethod
     def remove_words_too_small_or_long(words_dict):
         for dictionary in words_dict:
-            if len(dictionary["word"]) == 1\
-                    or len(dictionary["word"]) == 2\
+            if len(dictionary["word"]) == 1 \
+                    or len(dictionary["word"]) == 2 \
                     or len(dictionary["word"]) == 3:
                 words_dict.remove(dictionary)
 
