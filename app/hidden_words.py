@@ -4,7 +4,7 @@ from pprint import pprint
 import boto3
 
 
-def get_words_by_length(word_length):
+def get_words_by_key(key):
     dynamodb = boto3.resource('dynamodb', region_name='eu-west-1')
     table = dynamodb.Table('hidden_words')
 
@@ -12,7 +12,7 @@ def get_words_by_length(word_length):
         TableName="hidden_words",
         KeyConditionExpression="#DDB_key = :pkey",
         ExpressionAttributeValues={
-            ":pkey": word_length
+            ":pkey": key
         },
         ExpressionAttributeNames={
             "#DDB_key": "key"
@@ -34,14 +34,14 @@ class GridGenerator:
     This class is responsible of generating the grid where
     all the words and the random letters will be inserted.
     """
-    def __init__(self, words_number, grid_size):
+    def __init__(self, words_number, grid_size, get_all_words):
         """
         Full init of the grid needs. The words from the DB where we take
         some randoms words based on the words number chose by the user.
         And the grid with a grid size chose by the user as well.
         """
-        all_database = get_words_by_length(1)
-        self.all_words_in_dict = [x for x in all_database]
+        self.all_database = get_all_words
+        self.all_words_in_dict = [x for x in self.all_database]
         self.all_words = [word["word"] for word in self.all_words_in_dict]
         self.random_words = [random.choice(self.all_words)
                              for _ in range(words_number)]
