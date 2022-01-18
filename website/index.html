@@ -15,22 +15,7 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"></script>
 </head>
-
-<body id="page-top"><a class="menu-toggle rounded" href="#"><i class="fa fa-bars"></i></a>
-    <nav class="navbar navbar-light navbar-expand" id="sidebar-wrapper">
-        <div class="container"><button data-bs-toggle="collapse" class="navbar-toggler d-none" data-bs-target="#"></button>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav sidebar-nav" id="sidebar-nav">
-                    <li class="nav-item sidebar-brand"><a class="nav-link active js-scroll-trigger" href="#page-top">Battle Word</a></li>
-                    <li class="nav-item sidebar-nav-item"><a class="nav-link js-scroll-trigger" href="#page-top">Home</a></li>
-                    <li class="nav-item sidebar-nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
-                    <li class="nav-item sidebar-nav-item"><a class="nav-link js-scroll-trigger" href="#services">Services</a></li>
-                    <li class="nav-item sidebar-nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a></li>
-                    <li class="nav-item sidebar-nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<body id="page-top">
     <header class="d-flex masthead" style="background-image:url('assets/img/bg-masthead.jpg');">
         <div class="container my-auto text-center">
             <h1 class="mb-1">Hidden Words</h1>
@@ -65,20 +50,13 @@
                             </label>
                     </div>
                 </div><br>
-                <a id="add-parameters" class="btn btn-primary btn-xl js-scroll-trigger mt-4" role="button" type="submit" href="https://4is90gmk99.execute-api.eu-west-1.amazonaws.com/production/generate-file?grid-size=18&words-number=5" style="padding: 10px 15px;">GÉNÉRER UN PDF</a><br>
-                <a class="btn btn-primary btn-xl js-scroll-trigger mt-4 btn-animation" role="button" type="submit" href="https://4is90gmk99.execute-api.eu-west-1.amazonaws.com/production/generate-file?grid-size=18&words-number=5" style="padding: 10px 15px;">GÉNÉRER UN PDF</a><br>
-                <button class="btn-animation">click</button>
-                <script type="text/javascript">
-                    $(document).ready(function (){
-                        $('.btn-animation').click(function (){
-                            $(this).addClass("loader");
-                            setTimeout(function (){
-                                $('.btn-animation').addClass("finished");
-                                $('.btn-animation').removeClass("loader");
-                            }, 3500)
-                        })
-                    })
-                </script>
+                <button id="add-parameters" class="btn btn-primary btn-xl js-scroll-trigger mt-4" type="button" href="https://4is90gmk99.execute-api.eu-west-1.amazonaws.com/production/generate-file?grid-size=18&words-number=5" style="padding: 10px 15px;">GÉNÉRER UN PDF</button><br>
+<!--                  <div class="load-7">-->
+<!--                    <p>Loading 7</p>-->
+<!--                    <div class="square-holder">-->
+<!--                      <div class="square"></div>-->
+<!--                    </div>-->
+<!--                  </div>-->
             </form>
             <div class="overlay"></div>
         </div>
