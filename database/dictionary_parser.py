@@ -34,8 +34,7 @@ class WordDownloader:
                     all_words.append(word['href'])
                 page = page + 1
 
-        print(all_words)
-        print(len(all_words))
+        print("# " + str(len(all_words)) + " words has been scraped")
         return all_words
 
     @staticmethod
@@ -87,6 +86,9 @@ class WordDownloader:
                 self.add_to_dictionary(all_words_and_def, soup, this_dict,
                                        word_def)
 
+        print(
+            "# " + str(len(all_words_and_def)) + " words definitions has been "
+                                                 "scraped")
         return all_words_and_def
 
 
@@ -139,14 +141,20 @@ class DictionaryCleaner:
 
     @staticmethod
     def remove_words_too_small_or_long(words_dict):
+        """
+        Removes words that are too small or too long
+        """
         for dictionary in words_dict:
-            if len(dictionary["word"]) == 1 \
-                    or len(dictionary["word"]) == 2 \
-                    or len(dictionary["word"]) == 3:
+            if len(dictionary["word"]) in range(1, 5):
+                words_dict.remove(dictionary)
+            if len(dictionary["word"]) in range(13, 26):
                 words_dict.remove(dictionary)
 
     @staticmethod
     def remove_comas(words_dict):
+        """
+        Removes words that contains comas
+        """
         for dictionary in words_dict:
             if "-" in dictionary["word"]:
                 words_dict.remove(dictionary)
@@ -164,4 +172,7 @@ class DictionaryCleaner:
             self.remove_special_characters_from_words(dictionary)
             self.add_words_key_to_dict(dictionary)
 
+        print("# Cleaning DONE! " + str(len(words_dict)) + " words are in the "
+                                                           "list to be added "
+                                                           "in the DB")
         return words_dict

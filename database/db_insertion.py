@@ -20,3 +20,5 @@ def db_insertion(words_dict, table_name):
                     'key': dictionary['key']
                 }
             )
+
+    print("# DB Insertion done!")
