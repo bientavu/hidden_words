@@ -2,14 +2,15 @@ import random
 import string
 from pprint import pprint
 import boto3
+from constants import TABLE_NAME
 
 
 def get_words_by_key(key):
     dynamodb = boto3.resource('dynamodb', region_name='eu-west-1')
-    table = dynamodb.Table('hidden_words')
+    table = dynamodb.Table(TABLE_NAME)
 
     response = table.query(
-        TableName="hidden_words",
+        TableName=TABLE_NAME,
         KeyConditionExpression="#DDB_key = :pkey",
         ExpressionAttributeValues={
             ":pkey": key
