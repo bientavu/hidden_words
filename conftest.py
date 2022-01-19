@@ -17,12 +17,6 @@ def response():
 
 
 @pytest.fixture()
-def dict_cleaner():
-    dict_cleaner = DictionaryCleaner()
-    return dict_cleaner
-
-
-@pytest.fixture()
 def server():
     """Selenium web driver setup"""
     chrome_options = Options()
