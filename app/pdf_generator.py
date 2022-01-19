@@ -18,7 +18,7 @@ class PdfGenerator:
         self.grid = GridGenerator(words_number, grid_size, get_all_words)
         self.data = self.grid.create_full_grid()
         self.title = [
-            'Mots cachés générés aléatoirement grâce à motscachesgenerator.fr'
+            'Mots cachés générés aléatoirement grâce à hidden-words.fr'
         ]
         self.words = [self.grid.random_words]
         self.second_title = ['Mots à trouver :']
