@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Hidden Words</title>
     <meta name="description" content="Générateur de mots croisés">
+    <!-- Favicon -->
+    <link rel="icon" href="assets/hidden-words-logo.ico" type="image/x-icon">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic">
@@ -16,14 +18,14 @@
       crossorigin="anonymous"></script>
 </head>
 <body id="page-top">
-    <header class="d-flex masthead" style="background-image:url('assets/img/bg-masthead.jpg');">
+    <header class="d-flex bg-ok" style="background-image:url('assets/img/bg-masthead.jpg');">
         <div class="container my-auto text-center">
-            <h1 class="mb-1">Hidden Words</h1>
-            <h3 class="mb-5"><em>Générateur de mots cachés/mélés</em></h3>
+            <h1 class="mb-1 text-border-white">Hidden Words</h1>
+            <h3 class="mb-5 text-border-white"><em>Générateur de mots cachés/mélés</em></h3>
             <form method="GET" id="pdf-parameters" class="form-inline">
                 <div class="form-group align-content-center d-inline-flex" style="text-align: -webkit-center">
                     <div class="m-3">
-                        <label style="font-weight: bold">Taille de la grille</label><br>
+                        <label class="text-border-white text-choice-px" style="font-weight: bold">Taille de la grille</label><br>
                             <label>
                                 <select id="grid-size" name="grid-size" class="form-control w-auto m-2 btn btn-primary dropdown" style="text-align: -webkit-center">
                                   <option value="18">18 x 18</option>
@@ -37,7 +39,7 @@
                             </label>
                     </div>
                     <div class="m-3 font-weight-bold">
-                        <label style="font-weight: bold">Nombres de mots</label><br>
+                        <label class="text-border-white text-choice-px" style="font-weight: bold">Nombres de mots</label><br>
                             <label>
                                 <select id="words-number" name="words-number" class="form-control w-auto m-2 btn btn-primary dropdown" style="text-align: -webkit-center">
                                 <option value="5">5 mots</option>
@@ -50,13 +52,9 @@
                             </label>
                     </div>
                 </div><br>
-                <button id="add-parameters" class="btn btn-primary btn-xl js-scroll-trigger mt-4" type="button" href="https://4is90gmk99.execute-api.eu-west-1.amazonaws.com/production/generate-file?grid-size=18&words-number=5" style="padding: 10px 15px;">GÉNÉRER UN PDF</button><br>
-<!--                  <div class="load-7">-->
-<!--                    <p>Loading 7</p>-->
-<!--                    <div class="square-holder">-->
-<!--                      <div class="square"></div>-->
-<!--                    </div>-->
-<!--                  </div>-->
+                <button id="add-parameters" class="btn btn-primary btn-xl js-scroll-trigger mt-4" type="button" onclick="download()" href="https://4is90gmk99.execute-api.eu-west-1.amazonaws.com/production/generate-file?grid-size=18&words-number=5" style="padding: 10px 15px;">GÉNÉRER UN PDF</button><br><br>
+                <div class="square-holder">
+                </div>
             </form>
             <div class="overlay"></div>
         </div>

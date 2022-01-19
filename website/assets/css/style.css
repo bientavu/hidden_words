@@ -63,3 +63,65 @@ body{
         transform: scale(1) translateY(0px);
     }
 }
+
+.bg-ok {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.text-border-white {
+    text-shadow: 0.7px 0.7px 0 white, 0.7px -0.7px 0 white,
+    -0.7px 0.7px 0 white, -0.7px -0.7px 0 white,
+    0.7px 0px 0 white, 0px 0.7px 0 white,
+    -0.7px 0px 0 white, 0px -0.7px 0 white;
+}
+
+.text-choice-px {
+    font-size: 18px;
+}
+
+.square {
+    width: 25px;
+    height: 25px;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.square-holder {
+    display: inline-flex;
+}
+
+.l-7 {
+    animation-delay: 1.2s;
+}
+
+.load-7 .square {
+    animation: loadingG 1.5s cubic-bezier(0.17, 0.37, 0.43, 0.67) 10;
+}
+
+@keyframes loadingG {
+  0% {
+    transform: translate(-70px, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(70px, 0) rotate(360deg);
+  }
+  100% {
+    transform: translate(-70px, 0) rotate(0deg);
+  }
+}
+
+.load-wrapp {
+  float: left;
+  width: 180px;
+  height: 60px;
+
+
+  border-radius: 5px;
+  text-align: center;
+  background-color: #1d809f;
+}

@@ -5,13 +5,27 @@ $('select').on('change', function() {
     $('#add-parameters').attr("href", newurl);
 });
 
-$(function () {
+$(function download() {
     $('button').on('click', function () {
+        var newDiv = $(
+            '<div class="load-wrapp">\n' +
+            '    <div class="load-7">\n' +
+            '        <p style="margin-bottom: 0; color: white">Chargement...</p>\n' +
+            '        <div class="square-holder">\n' +
+            '            <div class="square"></div>\n' +
+            '        </div>\n' +
+            '    </div>\n' +
+            '</div>'
+        );
+       $(".square-holder").append(newDiv);
+       setTimeout(function (){
+           newDiv.remove();
+       }, 6500);
+
         theURL = $(this).attr('href');
         $.ajax({
             type: 'GET',
             url: theURL,
-            async: false,
             beforeSend: (xhr) => {
               if (xhr && xhr.overrideMimeType) {
                 xhr.overrideMimeType('application/json;charset=utf-8');
