@@ -7,8 +7,7 @@ def test_dynamic_url_updated_by_user(server):
     Test that when the user change the grid size and the words number,
     the URL is dynamically updated to reflect the user choices.
     """
-    server.get('https://hidden-words-website.s3.eu-west-1.amazonaws.com'
-               '/hidden-words/index.html')
+    server.get('http://hidden-words.fr/')
 
     grid_choices = server.find_element(By.ID, 'grid-size')
     words_number_choices = server.find_element(By.ID, 'words-number')
