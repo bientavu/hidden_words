@@ -10,7 +10,7 @@ with my code by scraping another dictionary or bringing your own
 list of words.
 
 ## Link to website
-https://hidden-words.fr/ (might be broken depending on when you are
+http://hidden-words.fr/ (might be broken depending on when you are
 looking at this project. You can see the website visual below)
 
 ## How to install on your own
@@ -20,3 +20,21 @@ the deployment. I did everything with AWS DynamoDB, S3, Lambda and API Gateway,
 so the docs only shows this solution. Feel free to use another method.
 Sorry the documentation is also in French, but it wouldn't be hard to
 understand as commands are still in english, and I redirect to some AWS docs.
+
+Doc files are :
+
+- Functional brief: the app overall and his actors are described
+- Technical brief: we dive deeper in what the app is made of (aws structure)
+- Deployment brief: everything you need to know on how to install the app on your own
+
+## Flake8
+The app is fully flake8 compliant. You can run it with:
+`flake8`
+
+## Pytest Coverage
+Pytest coverage score is at 90%. You can run it with:
+- `coverage run -m pytest`
+- `coverage html` (an html report will be created in your project root folder)
+
+## App screenshot
+![example](https://github.com/bientavu/hidden_words/blob/master/website/assets/img/app-screenshot-blur.png?raw=true)
