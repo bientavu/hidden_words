@@ -29,8 +29,8 @@ class PdfGenerator:
                 + self.data[00][2]
                 + self.data[00][3]
         ).lower()
-        self.filename = f'mots-caches-generator-{self.to_replace}.pdf'
-        self.filepath = f'/tmp/mots-caches-generator-{self.to_replace}.pdf'
+        self.filename = f'hidden-words-{self.to_replace}.pdf'
+        self.filepath = f'/tmp/hidden-words-{self.to_replace}.pdf'
         self.pdf = SimpleDocTemplate(
             self.filepath,
             pagesize=letter
