@@ -47,11 +47,6 @@ class PdfGenerator:
             ('FONTSIZE', (0, 0), (-1, -1), 13),
             ('BOTTOMPADDING', (0, 0), (-1, -1), 10),
         ])
-        others_title_table_style = TableStyle([
-            ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
-            ('FONTSIZE', (0, 0), (-1, -1), 13),
-            ('BOTTOMPADDING', (0, 0), (-1, -1), 10),
-        ])
         grid_table_style = TableStyle([
             ('BACKGROUND', (0, 0), (-1, -1), colors.beige),
             ('FONTSIZE', (0, 0), (-1, -1), 11),
@@ -66,7 +61,10 @@ class PdfGenerator:
 
         title_table = Table([self.title])
         grid_table = Table(self.data)
-        words_table = Table(self.words)
+        first_five_words = self.words[0][:5]
+        last_five_words = self.words[0][5:]
+        words_table_1 = Table([first_five_words])
+        words_table_2 = Table([last_five_words])
         second_title_table = Table([self.second_title])
 
         definitions_table = []
@@ -74,20 +72,24 @@ class PdfGenerator:
             for definition in self.definitions:
                 dictionary = dict(zip(word, definition))
                 for key, value in dictionary.items():
-                    definitions_table.append([Paragraph(key), Paragraph(value)])
+                    definitions_table.append(
+                        [Paragraph(key), Paragraph(value)]
+                    )
 
         full_structure = Table([
             [title_table],
             [grid_table],
             [second_title_table],
-            [words_table],
+            [words_table_1],
+            [words_table_2],
             [definitions_table]
         ])
 
         title_table.setStyle(title_table_style)
         grid_table.setStyle(grid_table_style)
-        words_table.setStyle(words_table_style)
-        second_title_table.setStyle(others_title_table_style)
+        words_table_1.setStyle(words_table_style)
+        words_table_2.setStyle(words_table_style)
+        second_title_table.setStyle(title_table_style)
         full_structure.setStyle(full_structure_style)
 
         return full_structure

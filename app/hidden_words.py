@@ -1,6 +1,5 @@
 import random
 import string
-from pprint import pprint
 import boto3
 from constants import TABLE_NAME
 
