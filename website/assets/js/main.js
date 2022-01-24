@@ -20,7 +20,7 @@ $(function download() {
        $(".square-holder").append(newDiv);
        setTimeout(function (){
            newDiv.remove();
-       }, 6500);
+       }, 7000);
 
         theURL = $(this).attr('href');
         $.ajax({

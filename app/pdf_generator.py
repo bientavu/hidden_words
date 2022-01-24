@@ -1,5 +1,5 @@
 from app.hidden_words import GridGenerator
-from reportlab.platypus import SimpleDocTemplate
+from reportlab.platypus import SimpleDocTemplate, Paragraph
 from reportlab.platypus import Table
 from reportlab.platypus import TableStyle
 from reportlab.lib.pagesizes import letter
@@ -17,12 +17,11 @@ class PdfGenerator:
         """
         self.grid = GridGenerator(words_number, grid_size, get_all_words)
         self.data = self.grid.create_full_grid()
-        self.title = [
-            'Mots cachés générés aléatoirement grâce à hidden-words.fr'
-        ]
-        self.words = [self.grid.random_words]
+        self.title = ['Mots cachés générés aléatoirement '
+                      'grâce à hidden-words.fr']
         self.second_title = ['Mots à trouver :']
-        self.table = Table(self.data)
+        self.words = [self.grid.random_only_words]
+        self.definitions = [self.grid.random_only_def]
         self.to_replace = (
                 self.data[00][0]
                 + self.data[00][1]
@@ -33,6 +32,8 @@ class PdfGenerator:
         self.filepath = f'/tmp/hidden-words-{self.to_replace}.pdf'
         self.pdf = SimpleDocTemplate(
             self.filepath,
+            topMargin=10,
+            bottomMargin=10,
             pagesize=letter
         )
 
@@ -41,22 +42,15 @@ class PdfGenerator:
         Here we build the PDF with different blocks.
         First the title, then the grid, the second title and the words.
         """
-        title_table = Table([self.title])
-        grid_table = Table(self.data)
-        words_table = Table(self.words)
-        second_title_table = Table([self.second_title])
-        full_structure = Table([
-            [title_table],
-            [grid_table],
-            [second_title_table],
-            [words_table]
-        ])
-
         title_table_style = TableStyle([
             ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
-            ('FONTSIZE', (0, 0), (-1, -1), 14),
-            ('BOTTOMPADDING', (0, 0), (-1, -1), 14),
-            ('TOPPADDING', (0, 0), (-1, -1), 18)
+            ('FONTSIZE', (0, 0), (-1, -1), 13),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 10),
+        ])
+        others_title_table_style = TableStyle([
+            ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
+            ('FONTSIZE', (0, 0), (-1, -1), 13),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 10),
         ])
         grid_table_style = TableStyle([
             ('BACKGROUND', (0, 0), (-1, -1), colors.beige),
@@ -70,10 +64,30 @@ class PdfGenerator:
             ('ALIGN', (0, 0), (-1, -1), 'CENTER')
         ])
 
+        title_table = Table([self.title])
+        grid_table = Table(self.data)
+        words_table = Table(self.words)
+        second_title_table = Table([self.second_title])
+
+        definitions_table = []
+        for word in self.words:
+            for definition in self.definitions:
+                dictionary = dict(zip(word, definition))
+                for key, value in dictionary.items():
+                    definitions_table.append([Paragraph(key), Paragraph(value)])
+
+        full_structure = Table([
+            [title_table],
+            [grid_table],
+            [second_title_table],
+            [words_table],
+            [definitions_table]
+        ])
+
         title_table.setStyle(title_table_style)
         grid_table.setStyle(grid_table_style)
         words_table.setStyle(words_table_style)
-        second_title_table.setStyle(title_table_style)
+        second_title_table.setStyle(others_title_table_style)
         full_structure.setStyle(full_structure_style)
 
         return full_structure

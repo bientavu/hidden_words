@@ -22,10 +22,6 @@ def get_words_by_key(key):
 
     data = response['Items']
 
-    # while 'LastEvaluatedKey' in response:
-    #     response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
-    #     data.extend(response['Items'])
-
     print(len(data))
     return data
 
@@ -43,9 +39,15 @@ class GridGenerator:
         """
         self.all_database = get_all_words
         self.all_words_in_dict = [x for x in self.all_database]
-        self.all_words = [word["word"] for word in self.all_words_in_dict]
-        self.random_words = [random.choice(self.all_words)
-                             for _ in range(words_number)]
+        self.random_all_words_in_dict = [random.choice(self.all_words_in_dict)
+                                         for _ in range(words_number)]
+        self.random_only_words = [word["word"] for word in
+                                  self.random_all_words_in_dict]
+        self.random_only_def = [word["definition"] for word in
+                                self.random_all_words_in_dict]
+        # self.all_words = [word["word"] for word in self.all_words_in_dict]
+        # self.random_words = [random.choice(self.all_words)
+        #                      for _ in range(words_number)]
         self.grid_size = grid_size
         self.grid = [['_' for _ in range(grid_size)] for _ in range(grid_size)]
 
@@ -60,7 +62,7 @@ class GridGenerator:
         orientations = [
             'left-right', 'up-down', 'diagonal-up', 'diagonal-down'
         ]
-        for word in self.random_words:
+        for word in self.random_only_words:
             word_length = len(word)
 
             placed = False
@@ -135,11 +137,9 @@ class GridGenerator:
         """
         self.populate_random_words_in_grid()
         self.populate_rest_of_grid()
-        print(self.grid)
-        for x in range(self.grid_size):
-            print(' '.join(self.grid[x]))
+        # for x in range(self.grid_size):
+        #     print(' '.join(self.grid[x]))
 
         print('Les mots sont :')
-        pprint(self.random_words)
 
         return self.grid
