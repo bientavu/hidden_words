@@ -140,6 +140,6 @@ class GridGenerator:
         # for x in range(self.grid_size):
         #     print(' '.join(self.grid[x]))
 
-        print('Les mots sont :')
+        # print('Les mots sont :')
 
         return self.grid
