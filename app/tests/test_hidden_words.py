@@ -9,8 +9,8 @@ class TestGridGenerator:
 
         assert isinstance(grid.all_words_in_dict, list)
         assert isinstance(first_dictionary, dict)
-        assert isinstance(grid.all_words, list)
-        assert len(grid.random_words) == 5
+        assert isinstance(grid.random_only_words, list)
+        assert len(grid.random_only_words) == 5
         assert len(grid.grid) == grid.grid_size
 
     def test_create_full_grid(self, fake_dynamo_db):
