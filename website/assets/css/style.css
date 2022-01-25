@@ -125,3 +125,5 @@ body{
   text-align: center;
   background-color: #1d809f;
 }
+
+.footer{position: absolute; bottom: 0; left: 0; right: 0;}
