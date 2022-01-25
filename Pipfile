@@ -18,7 +18,6 @@ selenium = "*"
 webdriver-manager = "*"
 coverage = "*"
 flake8 = "*"
-sentry-sdk = "*"
 
 [dev-packages]
 
