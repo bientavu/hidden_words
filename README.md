@@ -11,7 +11,7 @@ list of words.
 
 ## Link to website
 http://hidden-words.fr/ (might be broken depending on when you are
-looking at this project. You can see the website visual below)
+looking at this project. You can see the website visual below).
 You will need to activate pop-up to be able to download a PDF.
 
 ## How to install on your own
