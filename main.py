@@ -1,20 +1,12 @@
 import json
 import logging
 import boto3
-# import sentry_sdk
-# from sentry_sdk.integrations.aws_lambda import AwsLambdaIntegration
 from botocore.exceptions import ClientError
 from app.pdf_generator import PdfGenerator
 from app.hidden_words import get_words_by_key
 from constants import BUCKET_NAME, DSN
 
 s3_client = boto3.client("s3")
-
-# sentry_sdk.init(
-#     dsn=DSN,
-#     integrations=[AwsLambdaIntegration()],
-#     traces_sample_rate=1.0,
-# )
 
 
 def lambda_handler(event, context):
