@@ -44,9 +44,6 @@ class GridGenerator:
                                   self.random_all_words_in_dict]
         self.random_only_def = [word["definition"] for word in
                                 self.random_all_words_in_dict]
-        # self.all_words = [word["word"] for word in self.all_words_in_dict]
-        # self.random_words = [random.choice(self.all_words)
-        #                      for _ in range(words_number)]
         self.grid_size = grid_size
         self.grid = [['_' for _ in range(grid_size)] for _ in range(grid_size)]
 
