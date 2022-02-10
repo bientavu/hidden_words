@@ -134,7 +134,7 @@ class DictionaryCleaner:
     @staticmethod
     def add_words_key_to_dict(dictionary):
         """
-        Add the words length to the dictionaries so that
+        Add a key to the dictionaries so that
         we can better and faster scan our Dynamo DB.
         """
         dictionary['key'] = 1
