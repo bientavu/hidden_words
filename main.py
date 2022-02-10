@@ -4,7 +4,7 @@ import boto3
 from botocore.exceptions import ClientError
 from app.pdf_generator import PdfGenerator
 from app.hidden_words import get_words_by_key
-from constants import BUCKET_NAME, DSN
+from constants import BUCKET_NAME
 
 s3_client = boto3.client("s3")
 

@@ -2,7 +2,6 @@ import boto3
 import pytest
 import requests
 from decimal import Decimal
-from database.dictionary_parser import DictionaryCleaner
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
